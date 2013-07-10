@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EBC7E4CA-A6B5-41BA-96D2-018ACAF51F25}</ProjectGuid>
+    <RootNamespace>GLFW</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_GLFW_USE_OPENGL;_GLFW_WGL;_GLFW_WIN32;GLFW_EXPOSE_NATIVE_WIN32;GLFW_EXPOSE_NATIVE_WGL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>OpenGL.lib</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_GLFW_USE_OPENGL;_GLFW_WGL;_GLFW_WIN32;GLFW_EXPOSE_NATIVE_WIN32;GLFW_EXPOSE_NATIVE_WGL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>OpenGL.lib</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\External\GLFW\deps\getopt.c" />
+    <ClCompile Include="..\..\External\GLFW\deps\tinycthread.c" />
+    <ClCompile Include="..\..\External\GLFW\src\clipboard.c" />
+    <ClCompile Include="..\..\External\GLFW\src\context.c" />
+    <ClCompile Include="..\..\External\GLFW\src\gamma.c" />
+    <ClCompile Include="..\..\External\GLFW\src\init.c" />
+    <ClCompile Include="..\..\External\GLFW\src\input.c" />
+    <ClCompile Include="..\..\External\GLFW\src\joystick.c" />
+    <ClCompile Include="..\..\External\GLFW\src\monitor.c" />
+    <ClCompile Include="..\..\External\GLFW\src\time.c" />
+    <ClCompile Include="..\..\External\GLFW\src\wgl_context.c" />
+    <ClCompile Include="..\..\External\GLFW\src\win32_clipboard.c" />
+    <ClCompile Include="..\..\External\GLFW\src\win32_gamma.c" />
+    <ClCompile Include="..\..\External\GLFW\src\win32_init.c" />
+    <ClCompile Include="..\..\External\GLFW\src\win32_joystick.c" />
+    <ClCompile Include="..\..\External\GLFW\src\win32_monitor.c" />
+    <ClCompile Include="..\..\External\GLFW\src\win32_time.c" />
+    <ClCompile Include="..\..\External\GLFW\src\win32_window.c" />
+    <ClCompile Include="..\..\External\GLFW\src\window.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\External\GLFW\deps\getopt.h" />
+    <ClInclude Include="..\..\External\GLFW\deps\GL\glext.h" />
+    <ClInclude Include="..\..\External\GLFW\deps\GL\glxext.h" />
+    <ClInclude Include="..\..\External\GLFW\deps\GL\wglext.h" />
+    <ClInclude Include="..\..\External\GLFW\deps\tinycthread.h" />
+    <ClInclude Include="..\..\External\GLFW\include\GLFW\glfw3.h" />
+    <ClInclude Include="..\..\External\GLFW\include\GLFW\glfw3native.h" />
+    <ClInclude Include="..\..\External\GLFW\src\internal.h" />
+    <ClInclude Include="..\..\External\GLFW\src\wgl_platform.h" />
+    <ClInclude Include="..\..\External\GLFW\src\win32_platform.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

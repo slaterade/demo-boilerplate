@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="deps">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{74814189-1e2b-45ef-bd03-5bb05a7c9888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{16225f34-df66-47b3-9977-0d5b4d225cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\GL">
+      <UniqueIdentifier>{44431d39-0aea-4764-bfe0-39c6d2a25ad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\GLFW">
+      <UniqueIdentifier>{99b0dc5a-a1ec-4b2e-b6a5-33f4706f47b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\External\GLFW\deps\getopt.c">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\deps\tinycthread.c">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\clipboard.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\context.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\gamma.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\init.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\input.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\joystick.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\monitor.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\time.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\wgl_context.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\win32_clipboard.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\win32_gamma.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\win32_init.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\win32_joystick.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\win32_monitor.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\win32_time.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\win32_window.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\window.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\External\GLFW\deps\getopt.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\deps\tinycthread.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\deps\GL\glext.h">
+      <Filter>deps\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\deps\GL\glxext.h">
+      <Filter>deps\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\deps\GL\wglext.h">
+      <Filter>deps\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\include\GLFW\glfw3.h">
+      <Filter>include\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\include\GLFW\glfw3native.h">
+      <Filter>include\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\src\internal.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\src\wgl_platform.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\src\win32_platform.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
