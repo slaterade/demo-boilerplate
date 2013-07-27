@@ -1,3 +1,6 @@
+// This main function was taken from the GLFW documentation
+// http://www.glfw.org
+
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <thread>
