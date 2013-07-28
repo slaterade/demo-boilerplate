@@ -49,6 +49,7 @@ GLuint CreateShader( GLenum eShaderType, const std::string& strShaderFile ) {
 
 GLuint CreateProgram( const std::vector<GLuint>& shaderList ) {
 	GLuint program = glCreateProgram();
+
 	for ( auto& shader : shaderList ) {
 		glAttachShader( program, shader );
 	}
@@ -75,8 +76,9 @@ GLuint CreateProgram( const std::vector<GLuint>& shaderList ) {
 GLuint theProgram;
 
 const std::string strVertexShader(
-	"#version 330\n"
-	"layout(location = 0) in vec4 position;\n"
+	"#version 150\n"
+	"#extension GL_ARB_explicit_attrib_location : enable\n" // required for osx
+	"layout (location = 0) in vec4 position;\n"
 	"void main()\n"
 	"{\n"
 	"	gl_Position = position;\n"
@@ -84,7 +86,7 @@ const std::string strVertexShader(
 );
 
 const std::string strFragmentShader(
-	"#version 330\n"
+	"#version 150\n"
 	"out vec4 outputColor;\n"
 	"void main()\n"
 	"{\n"
@@ -158,6 +160,13 @@ int main( int argc, char* argv[] ) {
 	if ( !glfwInit() ) {
 		exit( EXIT_FAILURE );
 	}
+	
+	// hints required for osx
+	glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
+	glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
+
 	window = glfwCreateWindow( 640, 480, "game-boilerplate", NULL, NULL );
 	if ( window == nullptr ) {
 	    glfwTerminate();
@@ -166,6 +175,7 @@ int main( int argc, char* argv[] ) {
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, key_callback);
 
+	glewExperimental = GL_TRUE; // without this we get a segfault
 	glewInit();
 	init();
 
