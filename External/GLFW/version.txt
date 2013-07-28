@@ -1,0 +1,2 @@
+GLFW version 3.0.2 was cloned on July 6, 2013
+https://github.com/glfw/glfw

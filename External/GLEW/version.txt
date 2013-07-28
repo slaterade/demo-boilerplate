@@ -1,0 +1,2 @@
+glew-1.10.0 was cloned on July 27, 2013
+https://github.com/nigels-com/glew
