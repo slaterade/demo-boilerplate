@@ -1,0 +1,2 @@
+slog version ?? was cloned on August 6, 2013
+https://github.com/sudopunk/slog
