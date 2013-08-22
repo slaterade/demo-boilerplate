@@ -9,6 +9,7 @@
 #include <thread>
 #include <vector>
 #include <algorithm>
+#include "lua.hpp"
 
 GLuint CreateShader( GLenum eShaderType, const std::string& strShaderFile ) {
 	GLuint shader = glCreateShader( eShaderType );
@@ -100,7 +101,7 @@ void InitializeProgram() {
 	shaderList.push_back( CreateShader( GL_FRAGMENT_SHADER, strFragmentShader ) );
 
 	theProgram = CreateProgram( shaderList );
-	
+
 	std::for_each( shaderList.begin(), shaderList.end(), glDeleteShader );
 }
 
@@ -155,12 +156,16 @@ static void key_callback( GLFWwindow* window, int key, int scancode, int action,
 }
 
 int main( int argc, char* argv[] ) {
+
+	// just testing Lua compile
+	lua_State* luaState = luaL_newstate();
+
 	GLFWwindow* window = nullptr;
 	glfwSetErrorCallback( error_callback );
 	if ( !glfwInit() ) {
 		exit( EXIT_FAILURE );
 	}
-	
+
 	// hints required for osx
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -175,7 +180,7 @@ int main( int argc, char* argv[] ) {
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, key_callback);
 
-	glewExperimental = GL_TRUE; // without this we get a segfault
+	glewExperimental = GL_TRUE; // without this we get a segfault in osx
 	glewInit();
 	init();
 
@@ -185,9 +190,9 @@ int main( int argc, char* argv[] ) {
 		glfwGetFramebufferSize( window, &width, &height );
 		ratio = width / static_cast<float>( height );
 		glViewport( 0, 0, width, height );
-		
+
 		display();
-		
+
 		glfwSwapBuffers( window );
 		glfwPollEvents();
 
