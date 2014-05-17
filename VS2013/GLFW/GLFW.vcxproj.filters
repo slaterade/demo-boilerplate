@@ -61,19 +61,22 @@
     <ClCompile Include="..\..\External\GLFW\src\win32_init.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\GLFW\src\win32_joystick.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\External\GLFW\src\win32_monitor.c">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\GLFW\src\win32_time.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\win32_tls.c">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\External\GLFW\src\win32_window.c">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\GLFW\src\window.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\GLFW\src\winmm_joystick.c">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,10 +105,22 @@
     <ClInclude Include="..\..\External\GLFW\src\internal.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\GLFW\src\wgl_platform.h">
+    <ClInclude Include="..\..\External\GLFW\src\iokit_joystick.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\src\nsgl_context.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\src\wgl_context.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\External\GLFW\src\win32_platform.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\src\win32_tls.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\GLFW\src\winmm_joystick.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
