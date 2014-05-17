@@ -1,8 +1,5 @@
 //========================================================================
-// GLFW - An OpenGL library
-// Platform:    X11/GLX
-// API version: 3.0
-// WWW:         http://www.glfw.org/
+// GLFW 3.1 GLX - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2002-2006 Marcus Geelnard
 // Copyright (c) 2006-2010 Camilla Berglund <elmindreda@elmindreda.org>
@@ -28,8 +25,8 @@
 //
 //========================================================================
 
-#ifndef _glx_platform_h_
-#define _glx_platform_h_
+#ifndef _glx_context_h_
+#define _glx_context_h_
 
 #define GLX_GLXEXT_LEGACY
 #include <GL/glx.h>
@@ -60,9 +57,9 @@
  #error "No OpenGL entry point retrieval mechanism was enabled"
 #endif
 
-#define _GLFW_PLATFORM_FBCONFIG             GLXFBConfig     glx
-#define _GLFW_PLATFORM_CONTEXT_STATE        _GLFWcontextGLX glx
-#define _GLFW_PLATFORM_LIBRARY_OPENGL_STATE _GLFWlibraryGLX glx
+#define _GLFW_PLATFORM_FBCONFIG                 GLXFBConfig     glx
+#define _GLFW_PLATFORM_CONTEXT_STATE            _GLFWcontextGLX glx
+#define _GLFW_PLATFORM_LIBRARY_CONTEXT_STATE    _GLFWlibraryGLX glx
 
 #ifndef GLX_MESA_swap_control
 typedef int (*PFNGLXSWAPINTERVALMESAPROC)(int);
@@ -94,22 +91,11 @@ typedef struct _GLFWlibraryGLX
     int             eventBase;
     int             errorBase;
 
-    // TLS key for per-thread current context/window
-    pthread_key_t   current;
-
-    // GLX error code received by Xlib error callback
-    int             errorCode;
-
     // GLX extensions
     PFNGLXSWAPINTERVALSGIPROC             SwapIntervalSGI;
     PFNGLXSWAPINTERVALEXTPROC             SwapIntervalEXT;
     PFNGLXSWAPINTERVALMESAPROC            SwapIntervalMESA;
-    PFNGLXGETFBCONFIGATTRIBSGIXPROC       GetFBConfigAttribSGIX;
-    PFNGLXCHOOSEFBCONFIGSGIXPROC          ChooseFBConfigSGIX;
-    PFNGLXCREATECONTEXTWITHCONFIGSGIXPROC CreateContextWithConfigSGIX;
-    PFNGLXGETVISUALFROMFBCONFIGSGIXPROC   GetVisualFromFBConfigSGIX;
     PFNGLXCREATECONTEXTATTRIBSARBPROC     CreateContextAttribsARB;
-    GLboolean       SGIX_fbconfig;
     GLboolean       SGI_swap_control;
     GLboolean       EXT_swap_control;
     GLboolean       MESA_swap_control;
@@ -126,4 +112,15 @@ typedef struct _GLFWlibraryGLX
 } _GLFWlibraryGLX;
 
 
-#endif // _glx_platform_h_
+//========================================================================
+// Prototypes for platform specific internal functions
+//========================================================================
+
+int _glfwInitContextAPI(void);
+void _glfwTerminateContextAPI(void);
+int _glfwCreateContext(_GLFWwindow* window,
+                       const _GLFWctxconfig* ctxconfig,
+                       const _GLFWfbconfig* fbconfig);
+void _glfwDestroyContext(_GLFWwindow* window);
+
+#endif // _glx_context_h_

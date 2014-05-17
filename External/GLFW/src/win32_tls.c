@@ -1,8 +1,5 @@
 //========================================================================
-// GLFW - An OpenGL library
-// Platform:    X11
-// API version: 3.0
-// WWW:         http://www.glfw.org/
+// GLFW 3.1 Win32 - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2002-2006 Marcus Geelnard
 // Copyright (c) 2006-2010 Camilla Berglund <elmindreda@elmindreda.org>
@@ -30,56 +27,34 @@
 
 #include "internal.h"
 
-#include <sys/time.h>
-#include <time.h>
-
-
-// Return raw time
-//
-static uint64_t getRawTime(void)
-{
-#if defined(CLOCK_MONOTONIC)
-    if (_glfw.x11.timer.monotonic)
-    {
-        struct timespec ts;
-
-        clock_gettime(CLOCK_MONOTONIC, &ts);
-        return (uint64_t) ts.tv_sec * (uint64_t) 1000000000 + (uint64_t) ts.tv_nsec;
-    }
-    else
-#endif
-    {
-        struct timeval tv;
-
-        gettimeofday(&tv, NULL);
-        return (uint64_t) tv.tv_sec * (uint64_t) 1000000 + (uint64_t) tv.tv_usec;
-    }
-}
-
 
 //////////////////////////////////////////////////////////////////////////
 //////                       GLFW internal API                      //////
 //////////////////////////////////////////////////////////////////////////
 
-// Initialise timer
-//
-void _glfwInitTimer(void)
+int _glfwInitTLS(void)
 {
-#if defined(CLOCK_MONOTONIC)
-    struct timespec ts;
-
-    if (clock_gettime(CLOCK_MONOTONIC, &ts) == 0)
+    _glfw.win32_tls.context = TlsAlloc();
+    if (_glfw.win32_tls.context == TLS_OUT_OF_INDEXES)
     {
-        _glfw.x11.timer.monotonic = GL_TRUE;
-        _glfw.x11.timer.resolution = 1e-9;
-    }
-    else
-#endif
-    {
-        _glfw.x11.timer.resolution = 1e-6;
+        _glfwInputError(GLFW_PLATFORM_ERROR,
+                        "Win32: Failed to allocate TLS index");
+        return GL_FALSE;
     }
 
-    _glfw.x11.timer.base = getRawTime();
+    _glfw.win32_tls.allocated = GL_TRUE;
+    return GL_TRUE;
+}
+
+void _glfwTerminateTLS(void)
+{
+    if (_glfw.win32_tls.allocated)
+        TlsFree(_glfw.win32_tls.context);
+}
+
+void _glfwSetCurrentContext(_GLFWwindow* context)
+{
+    TlsSetValue(_glfw.win32_tls.context, context);
 }
 
 
@@ -87,15 +62,8 @@ void _glfwInitTimer(void)
 //////                       GLFW platform API                      //////
 //////////////////////////////////////////////////////////////////////////
 
-double _glfwPlatformGetTime(void)
+_GLFWwindow* _glfwPlatformGetCurrentContext(void)
 {
-    return (double) (getRawTime() - _glfw.x11.timer.base) *
-        _glfw.x11.timer.resolution;
-}
-
-void _glfwPlatformSetTime(double time)
-{
-    _glfw.x11.timer.base = getRawTime() -
-        (uint64_t) (time / _glfw.x11.timer.resolution);
+    return TlsGetValue(_glfw.win32_tls.context);
 }
 

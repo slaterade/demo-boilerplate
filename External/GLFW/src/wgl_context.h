@@ -1,8 +1,5 @@
 //========================================================================
-// GLFW - An OpenGL library
-// Platform:    WGL
-// API version: 3.0
-// WWW:         http://www.glfw.org/
+// GLFW 3.1 WGL - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2002-2006 Marcus Geelnard
 // Copyright (c) 2006-2010 Camilla Berglund <elmindreda@elmindreda.org>
@@ -28,18 +25,17 @@
 //
 //========================================================================
 
-#ifndef _wgl_platform_h_
-#define _wgl_platform_h_
+#ifndef _wgl_context_h_
+#define _wgl_context_h_
 
 // This path may need to be changed if you build GLFW using your own setup
 // We ship and use our own copy of wglext.h since GLFW uses fairly new
 // extensions and not all operating systems come with an up-to-date version
 #include "../deps/GL/wglext.h"
 
-
-#define _GLFW_PLATFORM_FBCONFIG             int             wgl
-#define _GLFW_PLATFORM_CONTEXT_STATE        _GLFWcontextWGL wgl
-#define _GLFW_PLATFORM_LIBRARY_OPENGL_STATE _GLFWlibraryWGL wgl
+#define _GLFW_PLATFORM_FBCONFIG                 int             wgl
+#define _GLFW_PLATFORM_CONTEXT_STATE            _GLFWcontextWGL wgl
+#define _GLFW_PLATFORM_LIBRARY_CONTEXT_STATE    _GLFWlibraryWGL wgl
 
 
 //========================================================================
@@ -77,10 +73,26 @@ typedef struct _GLFWcontextWGL
 //------------------------------------------------------------------------
 typedef struct _GLFWlibraryWGL
 {
-    GLboolean   hasTLS;
-    DWORD       current;
+    // opengl32.dll
+    struct {
+        HINSTANCE   instance;
+    } opengl32;
 
 } _GLFWlibraryWGL;
 
 
-#endif // _wgl_platform_h_
+//========================================================================
+// Prototypes for platform specific internal functions
+//========================================================================
+
+int _glfwInitContextAPI(void);
+void _glfwTerminateContextAPI(void);
+int _glfwCreateContext(_GLFWwindow* window,
+                       const _GLFWctxconfig* ctxconfig,
+                       const _GLFWfbconfig* fbconfig);
+void _glfwDestroyContext(_GLFWwindow* window);
+int _glfwAnalyzeContext(const _GLFWwindow* window,
+                        const _GLFWctxconfig* ctxconfig,
+                        const _GLFWfbconfig* fbconfig);
+
+#endif // _wgl_context_h_

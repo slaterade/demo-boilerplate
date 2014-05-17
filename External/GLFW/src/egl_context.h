@@ -1,8 +1,5 @@
 //========================================================================
-// GLFW - An OpenGL library
-// Platform:    EGL
-// API version: 3.0
-// WWW:         http://www.glfw.org/
+// GLFW 3.1 EGL - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2002-2006 Marcus Geelnard
 // Copyright (c) 2006-2010 Camilla Berglund <elmindreda@elmindreda.org>
@@ -28,8 +25,8 @@
 //
 //========================================================================
 
-#ifndef _egl_platform_h_
-#define _egl_platform_h_
+#ifndef _egl_context_h_
+#define _egl_context_h_
 
 #include <EGL/egl.h>
 
@@ -43,9 +40,9 @@
  #include <dlfcn.h>
 #endif
 
-#define _GLFW_PLATFORM_FBCONFIG             EGLConfig       egl
-#define _GLFW_PLATFORM_CONTEXT_STATE        _GLFWcontextEGL egl
-#define _GLFW_PLATFORM_LIBRARY_OPENGL_STATE _GLFWlibraryEGL egl
+#define _GLFW_PLATFORM_FBCONFIG                 EGLConfig       egl
+#define _GLFW_PLATFORM_CONTEXT_STATE            _GLFWcontextEGL egl
+#define _GLFW_PLATFORM_LIBRARY_CONTEXT_STATE    _GLFWlibraryEGL egl
 
 
 //========================================================================
@@ -80,4 +77,18 @@ typedef struct _GLFWlibraryEGL
 } _GLFWlibraryEGL;
 
 
-#endif // _egl_platform_h_
+//========================================================================
+// Prototypes for platform specific internal functions
+//========================================================================
+
+int _glfwInitContextAPI(void);
+void _glfwTerminateContextAPI(void);
+int _glfwCreateContext(_GLFWwindow* window,
+                       const _GLFWctxconfig* ctxconfig,
+                       const _GLFWfbconfig* fbconfig);
+void _glfwDestroyContext(_GLFWwindow* window);
+int _glfwAnalyzeContext(const _GLFWwindow* window,
+                        const _GLFWctxconfig* ctxconfig,
+                        const _GLFWfbconfig* fbconfig);
+
+#endif // _egl_context_h_
