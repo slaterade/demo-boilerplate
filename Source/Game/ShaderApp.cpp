@@ -51,8 +51,24 @@ void ShaderApp::Render( double currentTime ) {
 		1.0f
 	};
 	glClearBufferfv( GL_COLOR, 0, color );
-
 	glUseProgram( _renderingProgram );
+
+	GLfloat attrib[] = {
+		float( sin( currentTime ) ) * 0.5f,
+		float( cos( currentTime ) ) * 0.6f,
+		0.0f,
+		0.0f
+	};
+	glVertexAttrib4fv( 0, attrib );
+
+	GLfloat colorAttrib[] {
+		float( cos(currentTime) ) * 0.5f + 0.5f,
+		float( sin(currentTime) ) * 0.5f + 0.5f,
+		0.0f,
+		1.0f
+	};
+	glVertexAttrib4fv(1, colorAttrib);
+
 	glDrawArrays( GL_TRIANGLES, 0, 3 );
 }
 
