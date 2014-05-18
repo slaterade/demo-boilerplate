@@ -122,21 +122,21 @@ public:
 /// primary function which slog is built around, use this to log your messages
 /// @param[in] the_logger logger object to bind this single function call
 /// @returns a message object to capture a stream log message
-message out( logger& the_logger = global_logger::get() ) {
+static message out( logger& the_logger = global_logger::get() ) {
 	return message( &the_logger );
 }
 
 /// initialize the logging system by setting a output file path
 /// @param[in] log_file_name a full file path (e.g. "c:/test/superlog.txt" or "funlog.txt" )
 /// @param[in] the_logger logger object to initialize
-void init( const std::string& log_file_name = "slog.txt", logger& the_logger = global_logger::get() ) {
+static void init( const std::string& log_file_name = "slog.txt", logger& the_logger = global_logger::get() ) {
 	the_logger.init( log_file_name );
 }
 
 static const std::string format_date_plus_time = "%Y-%m-%d %H:%M:%S";
 static const std::string format_time_only = "%H:%M:%S";
 
-void set_timestamp_format( const std::string& format = format_date_plus_time, logger& the_logger = global_logger::get() ) {
+static void set_timestamp_format( const std::string& format = format_date_plus_time, logger& the_logger = global_logger::get() ) {
 	the_logger.set_timestamp_format( format );
 }
 
