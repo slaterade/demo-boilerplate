@@ -4,11 +4,11 @@ layout (vertices = 3) out;
 
 in VS_OUT {
 	vec4 color;
-} tc_in;
+} tc_in[];
 
 out VS_OUT {
 	vec4 color;
-} tc_out;
+} tc_out[];
 
 void main( void ) {
 	if ( gl_InvocationID == 0 ) {
@@ -19,5 +19,5 @@ void main( void ) {
 	}
 	gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position;
 
-	tc_out.color = tc_in.color;
+	tc_out[gl_InvocationID].color = tc_in[0].color;
 }

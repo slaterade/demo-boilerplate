@@ -4,7 +4,7 @@ layout (triangles, equal_spacing, cw) in;
 
 in VS_OUT {
 	vec4 color;
-} te_in;
+} te_in[];
 
 out VS_OUT {
 	vec4 color;
@@ -17,5 +17,5 @@ void main( void ) {
 		gl_TessCoord.z * gl_in[2].gl_Position
 	);
 
-	te_out.color = te_in.color;
+	te_out.color = te_in[0].color;
 }
