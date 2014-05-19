@@ -21,6 +21,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Game\Shaders\test.frag" />
+    <None Include="..\..\Source\Game\Shaders\test.tesc" />
+    <None Include="..\..\Source\Game\Shaders\test.tese" />
     <None Include="..\..\Source\Game\Shaders\test.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
