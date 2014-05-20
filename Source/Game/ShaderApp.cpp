@@ -50,28 +50,12 @@ void ShaderApp::Render( double currentTime ) {
 		0.0f,
 		1.0f
 	};
-
 	glClearBufferfv( GL_COLOR, 0, color );
 	glUseProgram( _renderingProgram );
 
-	GLfloat attrib[] = {
-		float( sin( currentTime ) ) * 0.5f,
-		float( cos( currentTime ) ) * 0.6f,
-		0.0f,
-		0.0f
-	};
-	glVertexAttrib4fv( 0, attrib );
+	glPointSize( 5.0f );
 
-	GLfloat colorAttrib[] {
-		float( cos( currentTime ) ) * 0.5f + 0.5f,
-		float( sin( currentTime ) ) * 0.5f + 0.5f,
-		0.0f,
-		1.0f
-	};
-	glVertexAttrib4fv( 1, colorAttrib );
-
-	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-	glDrawArrays( GL_PATCHES, 0, 4 );
+	glDrawArrays( GL_PATCHES, 0, 3 );
 }
 
 GLuint ShaderApp::CompileShaders() {
@@ -79,6 +63,7 @@ GLuint ShaderApp::CompileShaders() {
 	shaderList.push_back( CompileShaderFromFile( GL_VERTEX_SHADER, "Shaders/test.vert" ) );
 	shaderList.push_back( CompileShaderFromFile( GL_TESS_CONTROL_SHADER, "Shaders/test.tesc" ) );
 	shaderList.push_back( CompileShaderFromFile( GL_TESS_EVALUATION_SHADER, "Shaders/test.tese" ) );
+	shaderList.push_back( CompileShaderFromFile( GL_GEOMETRY_SHADER, "Shaders/test.geom" ) );
 	shaderList.push_back( CompileShaderFromFile( GL_FRAGMENT_SHADER, "Shaders/test.frag" ) );
 
 	auto program = glCreateProgram();

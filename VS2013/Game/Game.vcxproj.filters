@@ -40,5 +40,8 @@
     <None Include="..\..\Source\Game\Shaders\test.tese">
       <Filter>Source\Shaders</Filter>
     </None>
+    <None Include="..\..\Source\Game\Shaders\test.geom">
+      <Filter>Source\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
