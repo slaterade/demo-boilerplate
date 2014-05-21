@@ -53,17 +53,15 @@ void ShaderApp::Render( double currentTime ) {
 	glClearBufferfv( GL_COLOR, 0, color );
 	glUseProgram( _renderingProgram );
 
-	glPointSize( 5.0f );
-
-	glDrawArrays( GL_PATCHES, 0, 3 );
+	glDrawArrays( GL_TRIANGLES, 0, 3 );
 }
 
 GLuint ShaderApp::CompileShaders() {
 	std::vector<GLuint> shaderList;
 	shaderList.push_back( CompileShaderFromFile( GL_VERTEX_SHADER, "Shaders/test.vert" ) );
-	shaderList.push_back( CompileShaderFromFile( GL_TESS_CONTROL_SHADER, "Shaders/test.tesc" ) );
-	shaderList.push_back( CompileShaderFromFile( GL_TESS_EVALUATION_SHADER, "Shaders/test.tese" ) );
-	shaderList.push_back( CompileShaderFromFile( GL_GEOMETRY_SHADER, "Shaders/test.geom" ) );
+	//shaderList.push_back( CompileShaderFromFile( GL_TESS_CONTROL_SHADER, "Shaders/test.tesc" ) );
+	//shaderList.push_back( CompileShaderFromFile( GL_TESS_EVALUATION_SHADER, "Shaders/test.tese" ) );
+	//shaderList.push_back( CompileShaderFromFile( GL_GEOMETRY_SHADER, "Shaders/test.geom" ) );
 	shaderList.push_back( CompileShaderFromFile( GL_FRAGMENT_SHADER, "Shaders/test.frag" ) );
 
 	auto program = glCreateProgram();
@@ -105,5 +103,19 @@ GLuint ShaderApp::CompileShaderFromFile( GLenum shaderType, const string& fileNa
 	auto shader = glCreateShader( shaderType );
 	glShaderSource( shader, 1, shaderSources, nullptr );
 	glCompileShader( shader );
-	return shader;
+
+	GLint isCompiled = 0;
+	glGetShaderiv( shader, GL_COMPILE_STATUS, &isCompiled );
+	if ( isCompiled == GL_FALSE ) {
+		GLint logSize = 0;
+		glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &logSize );
+		vector<char> errorLog( logSize );
+		glGetShaderInfoLog( shader, logSize, &logSize, &errorLog[0] );
+		slog::out() << "Compile failure: " << &errorLog[0];
+
+		glDeleteShader( shader );
+		return 0;
+	} else {
+		return shader;
+	}
 }
