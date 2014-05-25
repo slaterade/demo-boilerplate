@@ -18,6 +18,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\Game\Clock.h" />
     <ClInclude Include="..\..\Source\Game\ShaderApp.h" />
+    <ClInclude Include="..\..\Source\Game\vmath.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Game\Shaders\test.frag" />

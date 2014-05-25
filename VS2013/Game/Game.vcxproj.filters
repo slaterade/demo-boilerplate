@@ -26,6 +26,9 @@
     <ClInclude Include="..\..\Source\Game\ShaderApp.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Game\vmath.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Game\Shaders\test.frag">

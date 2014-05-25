@@ -13,7 +13,9 @@ ShaderApp::ShaderApp()
 	: _renderingProgram( 0 )
 	, _vertexArrayObject( 0 )
 	, _hasBeenInitialized( false )
-	, _hasBeenShutdown( false ) {
+	, _hasBeenShutdown( false )
+	, _windowWidth( 640 )
+	, _windowHeight( 480 ) {
 }
 
 ShaderApp::~ShaderApp() {
@@ -22,13 +24,82 @@ ShaderApp::~ShaderApp() {
 	}
 }
 
+void ShaderApp::SetWindowSize( int widthInPixels, int heightInPixels ) {
+	_windowWidth = widthInPixels;
+	_windowHeight = heightInPixels;
+	auto aspectRatio = (float)widthInPixels / (float)heightInPixels;
+	_projectionMatrix = vmath::perspective( 50.0f, aspectRatio, 0.1f, 1000.0f );
+}
+
 void ShaderApp::Initialize() {
 	if ( !_hasBeenInitialized ) {
+		_hasBeenInitialized = true;
 		glewInit();
 		_renderingProgram = CompileShaders();
 		glGenVertexArrays( 1, &_vertexArrayObject );
 		glBindVertexArray( _vertexArrayObject );
-		_hasBeenInitialized = true;
+
+		static const GLfloat vertexPositions[] = {
+			-0.25f, 0.25f, -0.25f,
+			-0.25f, -0.25f, -0.25f,
+			0.25f, -0.25f, -0.25f,
+
+			0.25f, -0.25f, -0.25f,
+			0.25f, 0.25f, -0.25f,
+			-0.25f, 0.25f, -0.25f,
+
+			0.25f, -0.25f, -0.25f,
+			0.25f, -0.25f, 0.25f,
+			0.25f, 0.25f, -0.25f,
+
+			0.25f, -0.25f, 0.25f,
+			0.25f, 0.25f, 0.25f,
+			0.25f, 0.25f, -0.25f,
+
+			0.25f, -0.25f, 0.25f,
+			-0.25f, -0.25f, 0.25f,
+			0.25f, 0.25f, 0.25f,
+
+			-0.25f, -0.25f, 0.25f,
+			-0.25f, 0.25f, 0.25f,
+			0.25f, 0.25f, 0.25f,
+
+			-0.25f, -0.25f, 0.25f,
+			-0.25f, -0.25f, -0.25f,
+			-0.25f, 0.25f, 0.25f,
+
+			-0.25f, -0.25f, -0.25f,
+			-0.25f, 0.25f, -0.25f,
+			-0.25f, 0.25f, 0.25f,
+
+			-0.25f, -0.25f, 0.25f,
+			0.25f, -0.25f, 0.25f,
+			0.25f, -0.25f, -0.25f,
+
+			0.25f, -0.25f, -0.25f,
+			-0.25f, -0.25f, -0.25f,
+			-0.25f, -0.25f, 0.25f,
+
+			-0.25f, 0.25f, -0.25f,
+			0.25f, 0.25f, -0.25f,
+			0.25f, 0.25f, 0.25f,
+
+			0.25f, 0.25f, 0.25f,
+			-0.25f, 0.25f, 0.25f,
+			-0.25f, 0.25f, -0.25f
+		};
+
+
+		glGenBuffers( 1, &_buffer );
+		glBindBuffer( GL_ARRAY_BUFFER, _buffer );
+		glBufferData( GL_ARRAY_BUFFER, sizeof( vertexPositions ), vertexPositions, GL_STATIC_DRAW );
+
+		glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, NULL );
+		glEnableVertexAttribArray( 0 );
+
+
+		glEnable( GL_CULL_FACE );
+		glFrontFace( GL_CW );
 	}
 }
 
@@ -44,16 +115,25 @@ void ShaderApp::Render( double currentTime ) {
 	if ( !_hasBeenInitialized ) {
 		Initialize();
 	}
-	const float color[] = {
-		float( sin( currentTime ) ) * 0.5f + 0.5f,
-		float( cos( currentTime ) ) * 0.5f + 0.5f,
-		0.0f,
-		1.0f
-	};
-	glClearBufferfv( GL_COLOR, 0, color );
+	glViewport( 0, 0, _windowWidth, _windowHeight );
+
+	float f = (float)currentTime * (float)M_PI * 0.1f;
+	vmath::mat4 mvMatrix =
+		vmath::translate( 0.0f, 0.0f, -4.0f )
+		* vmath::translate( sinf( 2.1f * f ) * 0.5f, cosf( 1.7f * f ) * 0.5f, sinf( 1.3f * f ) * cosf( 1.5f * f ) * 2.0f )
+		* vmath::rotate( (float)currentTime * 45.0f, 0.0f, 1.0f, 0.0f )
+		* vmath::rotate( (float)currentTime * 81.0f, 1.0f, 0.0f, 0.0f );
+
+	const GLfloat green[] = { 0.0f, 0.25f, 0.0f, 1.0f };
+	glClearBufferfv( GL_COLOR, 0, green );
+
 	glUseProgram( _renderingProgram );
 
-	glDrawArrays( GL_TRIANGLES, 0, 3 );
+	// set up model-view and projection matrices
+	glUniformMatrix4fv( _projectionLocation, 1, GL_FALSE, _projectionMatrix );
+	glUniformMatrix4fv( _mvLocation, 1, GL_FALSE, mvMatrix );
+
+	glDrawArrays( GL_TRIANGLES, 0, 36 );
 }
 
 GLuint ShaderApp::CompileShaders() {
@@ -84,6 +164,9 @@ GLuint ShaderApp::CompileShaders() {
 	for ( auto& shader : shaderList ) {
 		glDeleteShader( shader );
 	}
+
+	_mvLocation = glGetUniformLocation( program, "mv_matrix" );
+	_projectionLocation = glGetUniformLocation( program, "proj_matrix" );
 
 	return program;
 }
