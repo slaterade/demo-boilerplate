@@ -89,7 +89,6 @@ void ShaderApp::Initialize() {
 			-0.25f, 0.25f, -0.25f
 		};
 
-
 		glGenBuffers( 1, &_buffer );
 		glBindBuffer( GL_ARRAY_BUFFER, _buffer );
 		glBufferData( GL_ARRAY_BUFFER, sizeof( vertexPositions ), vertexPositions, GL_STATIC_DRAW );
@@ -97,9 +96,11 @@ void ShaderApp::Initialize() {
 		glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, NULL );
 		glEnableVertexAttribArray( 0 );
 
-
 		glEnable( GL_CULL_FACE );
 		glFrontFace( GL_CW );
+
+		glEnable( GL_DEPTH_TEST );
+		glDepthFunc( GL_LEQUAL );
 	}
 }
 
@@ -117,23 +118,29 @@ void ShaderApp::Render( double currentTime ) {
 	}
 	glViewport( 0, 0, _windowWidth, _windowHeight );
 
-	float f = (float)currentTime * (float)M_PI * 0.1f;
-	vmath::mat4 mvMatrix =
-		vmath::translate( 0.0f, 0.0f, -4.0f )
-		* vmath::translate( sinf( 2.1f * f ) * 0.5f, cosf( 1.7f * f ) * 0.5f, sinf( 1.3f * f ) * cosf( 1.5f * f ) * 2.0f )
-		* vmath::rotate( (float)currentTime * 45.0f, 0.0f, 1.0f, 0.0f )
-		* vmath::rotate( (float)currentTime * 81.0f, 1.0f, 0.0f, 0.0f );
-
 	const GLfloat green[] = { 0.0f, 0.25f, 0.0f, 1.0f };
 	glClearBufferfv( GL_COLOR, 0, green );
+	
+	static const GLfloat one = 1.0f;
+	glClearBufferfv( GL_DEPTH, 0, &one );
 
 	glUseProgram( _renderingProgram );
 
-	// set up model-view and projection matrices
 	glUniformMatrix4fv( _projectionLocation, 1, GL_FALSE, _projectionMatrix );
-	glUniformMatrix4fv( _mvLocation, 1, GL_FALSE, mvMatrix );
 
-	glDrawArrays( GL_TRIANGLES, 0, 36 );
+	for ( int i = 0; i < 24; ++i ) {
+		float f = (float)i + (float)currentTime * 0.3f;
+		vmath::mat4 mvMatrix = vmath::translate( 0.0f, 0.0f, -6.0f )
+			* vmath::rotate( (float)currentTime * 45.0f, 0.0f, 1.0f, 0.0f )
+			* vmath::rotate( (float)currentTime * 21.0f, 1.0f, 0.0f, 0.0f )
+			* vmath::translate(
+				sinf( 2.1f * f ) * 2.0f,
+				cosf( 1.7f * f ) * 2.0f,
+				sinf( 1.3f * f ) * cosf( 1.5f * f ) * 2.0f
+			);
+		glUniformMatrix4fv( _mvLocation, 1, GL_FALSE, mvMatrix );
+		glDrawArrays( GL_TRIANGLES, 0, 36 );
+	}
 }
 
 GLuint ShaderApp::CompileShaders() {
