@@ -21,11 +21,11 @@
     <ClInclude Include="..\..\Source\Game\vmath.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\Game\Shaders\test.frag" />
-    <None Include="..\..\Source\Game\Shaders\test.geom" />
-    <None Include="..\..\Source\Game\Shaders\test.tesc" />
-    <None Include="..\..\Source\Game\Shaders\test.tese" />
-    <None Include="..\..\Source\Game\Shaders\test.vert" />
+    <None Include="..\..\Shaders\test.fs.glsl" />
+    <None Include="..\..\Shaders\test.gs.glsl" />
+    <None Include="..\..\Shaders\test.tcs.glsl" />
+    <None Include="..\..\Shaders\test.tes.glsl" />
+    <None Include="..\..\Shaders\test.vs.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A87A2FBD-72AC-4939-9E6D-54E100811400}</ProjectGuid>
@@ -79,10 +79,12 @@
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y $(SolutionDir)..\Source\Game\Shaders $(OutDir)Shaders\</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>xcopy /y $(SolutionDir)..\Source\Game\Shaders $(OutDir)Shaders\</Command>
+      <Command>
+      </Command>
     </CustomBuildStep>
     <PreBuildEvent>
       <Command>
@@ -109,10 +111,12 @@
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y $(SolutionDir)..\Source\Game\Shaders $(OutDir)Shaders\</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>xcopy /y $(SolutionDir)..\Source\Game\Shaders $(OutDir)Shaders\</Command>
+      <Command>
+      </Command>
     </CustomBuildStep>
     <PreBuildEvent>
       <Command>
@@ -123,11 +127,11 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>$(SolutionDir)..\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>$(SolutionDir)..\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

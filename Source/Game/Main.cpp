@@ -38,7 +38,7 @@ int main( int argc, char* argv[] ) {
 		return 1;
 	}
 
-	auto window = glfwCreateWindow( g_windowWidth, g_windowHeight, "GameBro", nullptr, nullptr );
+	auto window = glfwCreateWindow( g_windowWidth, g_windowHeight, "MetaDemo", nullptr, nullptr );
 	if ( window == nullptr ) {
 		glfwTerminate();
 		return 1;

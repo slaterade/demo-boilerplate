@@ -4,8 +4,11 @@
     <Filter Include="Source">
       <UniqueIdentifier>{01873bce-276a-4231-8414-da45da08e150}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Shaders">
-      <UniqueIdentifier>{9b776cd5-90e5-46af-8778-b0e183aca801}</UniqueIdentifier>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{b02aed18-0da8-4f99-acfb-2e3460b7c9d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media">
+      <UniqueIdentifier>{76e62da0-68ad-444a-9411-08345dc95f11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,20 +34,20 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\Game\Shaders\test.frag">
-      <Filter>Source\Shaders</Filter>
+    <None Include="..\..\Shaders\test.fs.glsl">
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\Source\Game\Shaders\test.vert">
-      <Filter>Source\Shaders</Filter>
+    <None Include="..\..\Shaders\test.gs.glsl">
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\Source\Game\Shaders\test.tesc">
-      <Filter>Source\Shaders</Filter>
+    <None Include="..\..\Shaders\test.tcs.glsl">
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\Source\Game\Shaders\test.tese">
-      <Filter>Source\Shaders</Filter>
+    <None Include="..\..\Shaders\test.tes.glsl">
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\Source\Game\Shaders\test.geom">
-      <Filter>Source\Shaders</Filter>
+    <None Include="..\..\Shaders\test.vs.glsl">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

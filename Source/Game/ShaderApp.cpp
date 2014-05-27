@@ -145,11 +145,11 @@ void ShaderApp::Render( double currentTime ) {
 
 GLuint ShaderApp::CompileShaders() {
 	std::vector<GLuint> shaderList;
-	shaderList.push_back( CompileShaderFromFile( GL_VERTEX_SHADER, "Shaders/test.vert" ) );
+	shaderList.push_back( CompileShaderFromFile( GL_VERTEX_SHADER, "Shaders/test.vs.glsl" ) );
 	//shaderList.push_back( CompileShaderFromFile( GL_TESS_CONTROL_SHADER, "Shaders/test.tesc" ) );
 	//shaderList.push_back( CompileShaderFromFile( GL_TESS_EVALUATION_SHADER, "Shaders/test.tese" ) );
 	//shaderList.push_back( CompileShaderFromFile( GL_GEOMETRY_SHADER, "Shaders/test.geom" ) );
-	shaderList.push_back( CompileShaderFromFile( GL_FRAGMENT_SHADER, "Shaders/test.frag" ) );
+	shaderList.push_back( CompileShaderFromFile( GL_FRAGMENT_SHADER, "Shaders/test.fs.glsl" ) );
 
 	auto program = glCreateProgram();
 	for ( auto& shader : shaderList ) {
@@ -181,6 +181,7 @@ GLuint ShaderApp::CompileShaders() {
 GLuint ShaderApp::CompileShaderFromFile( GLenum shaderType, const string& fileName ) {
 	ifstream file( fileName );
 	if ( !file.is_open() ) {
+		slog::out() << "CompileShaderFromFile could not open " << fileName;
 		return 0;
 	}
 	file.seekg( 0, ios::end );
